@@ -6,10 +6,10 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
-        <Route path="/" element={<RegistrationPaymentIntegration />} />
-        <Route path="/second" element={<RegistrationPaymentIntegrationSecond />} />
+        {/* <Route path="/" element={<RegistrationPaymentIntegration />} /> */}
+        <Route path="/" element={<RegistrationPaymentIntegrationSecond />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

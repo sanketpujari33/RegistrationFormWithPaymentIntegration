@@ -261,16 +261,9 @@ export default function RegistrationPaymentIntegrationSecond() {
                         <h3 className="text-center font-bold mb-1">Venue</h3>
                         <p className="text-center">Hotel, ai Palkhi, Nivara</p>
                         <p className="text-center text-sm">Brird And Fish Museaum</p>
-                        {/* <p className="text-center text-sm">Chatrapati Shivaji Maharaj Putla Road,</p> */}
-                        <p className="text-center text-sm">SHIRDI, AHILYANAGAR - 423109 (Maharashtra)</p>
+                      <p className="text-center text-sm">SHIRDI, AHILYANAGAR - 423109 (Maharashtra)</p>
                     </div>
 
-                    {/* <div className="w-1/2 flex justify-center items-center">
-                        <div className="text-center">
-                            <div className="border-b border-black w-48 h-12 mx-auto mb-2"></div>
-                            <p>(Signature of the Delegate)</p>
-                        </div>
-                    </div> */}
                 </div>
 
                 {/* Organizing Committee */}
