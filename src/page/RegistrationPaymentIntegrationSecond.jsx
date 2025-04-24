@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import siram from "../assets/siram.png";
-import bhim from "../assets/bhim.png";
-import paytm from "../assets/paytm.png";
-import upi from "../assets/upi.png";
 import qrcode from "../assets/qrcode.jpg";
 
 export default function RegistrationPaymentIntegrationSecond() {
@@ -36,8 +33,8 @@ export default function RegistrationPaymentIntegrationSecond() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto bg-white p-6 shadow-md">
+        <div className="bg-gray-100 flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
+            <div className=" mx-auto border-4 border-indigo-500  rounded-lg bg-white p-6 shadow-md">
                 {/* Header with logos and title */}
                 <div className="flex items-center justify-between mb-4">
                     <div className="w-32">
@@ -189,16 +186,6 @@ export default function RegistrationPaymentIntegrationSecond() {
                                 />
                                 <span>Technologist (₹2000)</span>
                             </label>
-                            {/* <label className="flex items-center space-x-2">
-                                <input
-                                    type="radio"
-                                    name="category"
-                                    value="Doctor"
-                                    checked={formData.category === "Doctor"}
-                                    onChange={handleChange}
-                                />
-                                <span>Doctor (₹500)</span>
-                            </label> */}
                             <label className="flex items-center space-x-2">
                                 <input
                                     type="radio"
@@ -261,7 +248,7 @@ export default function RegistrationPaymentIntegrationSecond() {
                         <h3 className="text-center font-bold mb-1">Venue</h3>
                         <p className="text-center">Hotel, ai Palkhi, Nivara</p>
                         <p className="text-center text-sm">Brird And Fish Museaum</p>
-                      <p className="text-center text-sm">SHIRDI, AHILYANAGAR - 423109 (Maharashtra)</p>
+                        <p className="text-center text-sm">SHIRDI, AHILYANAGAR - 423109 (Maharashtra)</p>
                     </div>
 
                 </div>
@@ -277,7 +264,6 @@ export default function RegistrationPaymentIntegrationSecond() {
                 <div className="grid grid-cols-6  w-full text-center mb-6">
                     <div className="">
                         <p className="font-bold">Digamber Sonawane</p>
-                        {/* <p className="text-sm">Krishna Imaging Center, Jalna</p> */}
                         <p className="text-sm">+918805565447</p>
                     </div>
                     <div className="">
@@ -329,10 +315,10 @@ export default function RegistrationPaymentIntegrationSecond() {
                             </table>
 
                             <div className="border border-black p-2 mt-2">
-                                <p className="font-bold">Bank Details for Online Payment :</p>
-                                <p className="text-sm">Name of A/c. : SOCIETY OF ALLIED IMAGING & RADIOGRAPHER'S ASSOCIATION OF MAHARASHTRA </p>
-                                <p className="text-sm">Bank Name : **** Bank &nbsp;&nbsp; Branch Name:AHILYANAGAR</p>
-                                <p className="text-sm">A/c. No. : *********** &nbsp;&nbsp; IFSC Code : CNR*****8</p>
+                                <p className="font-bold">Bank Details for Online Payment</p>
+                                <p className="text-sm">Name of A/c.:SOCIETY OF ALLIED IMAGING & RADIOGRAPHER'S ASSOCIATION OF MAHARASHTRA </p>
+                                <p className="text-sm">Bank Name : BANK OF MAHARASHTRA &nbsp;&nbsp; Branch Name:AHILYANAGAR</p>
+                                <p className="text-sm">A/c. No. : 60498972404 &nbsp;&nbsp; IFSC Code : MAHB0000125</p>
                                 <p className="text-sm">Contact No. : ******** &nbsp;&nbsp; E-mail : *******@gmail.com</p>
                             </div>
                         </div>
