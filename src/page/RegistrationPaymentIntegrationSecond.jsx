@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import siram from "../assets/siram.png";
 import qrcode from "../assets/qrcode.jpg";
 import axios from 'axios'; // You'll need to install axios: npm install axios
