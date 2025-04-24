@@ -1,6 +1,50 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import siram from "../assets/siram.png";
 import qrcode from "../assets/qrcode.jpg";
+import axios from 'axios'; // You'll need to install axios: npm install axios
+
+// Popup Modal Component
+const FormModal = ({ isOpen, type, message, onClose }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg p-6 shadow-xl max-w-md w-full">
+                <div className="flex items-center mb-4">
+                    <div className={`rounded-full p-2 mr-3 ${type === 'success' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+                        {type === 'success' ? (
+                            // Success icon
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                        ) : (
+                            // Error icon
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        )}
+                    </div>
+                    <h3 className="text-lg font-medium">
+                        {type === 'success' ? 'Registration Successful' : 'Registration Failed'}
+                    </h3>
+                </div>
+
+                <div className="mb-6">
+                    <p className="text-gray-700">{message}</p>
+                </div>
+
+                <div className="flex justify-end">
+                    <button
+                        onClick={onClose}
+                        className={`px-4 py-2 rounded ${type === 'success' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'} text-white transition-colors`}
+                    >
+                        {type === 'success' ? 'Continue' : 'Try Again'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 export default function RegistrationPaymentIntegrationSecond() {
     const [formData, setFormData] = useState({
@@ -18,18 +62,166 @@ export default function RegistrationPaymentIntegrationSecond() {
         transactionId: ''
     });
 
+    const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Modal state
+    const [modal, setModal] = useState({
+        isOpen: false,
+        type: 'success', // 'success' or 'error'
+        message: ''
+    });
+
+    // Handle form field changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value
         });
+
+        // Clear error for this field when user starts typing
+        if (errors[name]) {
+            setErrors({
+                ...errors,
+                [name]: ''
+            });
+        }
     };
 
-    const handleSubmit = (e) => {
+    // Validate form data
+    const validateForm = () => {
+        const newErrors = {};
+
+        // Name validation
+        if (!formData.name.trim()) {
+            newErrors.name = 'Name is required';
+        }
+
+        // Age validation
+        if (!formData.age) {
+            newErrors.age = 'Age is required';
+        } else if (isNaN(formData.age) || Number(formData.age) <= 0 || Number(formData.age) > 120) {
+            newErrors.age = 'Please enter a valid age';
+        }
+
+        // Sex validation
+        if (!formData.sex) {
+            newErrors.sex = 'Sex is required';
+        }
+
+        // Contact validation
+        if (!formData.contactNo) {
+            newErrors.contactNo = 'Contact number is required';
+        } else if (!/^[0-9]{10}$/.test(formData.contactNo)) {
+            newErrors.contactNo = 'Please enter a valid 10-digit contact number';
+        }
+
+        // Email validation
+        if (!formData.email) {
+            newErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors.email = 'Please enter a valid email address';
+        }
+
+        // Institute validation
+        if (!formData.institute.trim()) {
+            newErrors.institute = 'Institute is required';
+        }
+
+        // Designation validation
+        if (!formData.designation.trim()) {
+            newErrors.designation = 'Designation is required';
+        }
+
+        // Address validation
+        if (!formData.address.trim()) {
+            newErrors.address = 'Address is required';
+        }
+
+        // Transaction ID validation
+        if (!formData.transactionId.trim()) {
+            newErrors.transactionId = 'Transaction ID is required';
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    // Close modal handler
+    const handleCloseModal = () => {
+        setModal({
+            isOpen: false,
+            type: 'success',
+            message: ''
+        });
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form submitted:", formData);
-        alert('Registration submitted successfully!');
+
+        // Validate form
+        if (!validateForm()) {
+            // Scroll to first error
+            const firstError = document.querySelector('.error-message');
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            // API endpoint - replace with your actual API endpoint
+            const apiUrl = 'https://api.example.com/registration';
+
+            // Send data to API
+            const response = await axios.post(apiUrl, formData);
+
+            console.log("API Response:", response.data);
+
+            // Show success modal
+            setModal({
+                isOpen: true,
+                type: 'success',
+                message: 'Your registration has been submitted successfully! You will receive a confirmation email shortly.'
+            });
+
+            // Reset form after successful submission
+            setFormData({
+                name: '',
+                age: '',
+                sex: '',
+                contactNo: '',
+                email: '',
+                institute: '',
+                designation: '',
+                address: '',
+                addressLine2: '',
+                category: 'Technologist',
+                paymentMode: 'online',
+                transactionId: ''
+            });
+
+        } catch (error) {
+            console.error("Error submitting form:", error);
+
+            // Show error modal
+            setModal({
+                isOpen: true,
+                type: 'error',
+                message: error.response?.data?.message || 'There was an error submitting your registration. Please try again or contact support.'
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    // Helper to display error message
+    const ErrorMessage = ({ field }) => {
+        return errors[field] ? <p className="text-red-500 text-xs mt-1 error-message">{errors[field]}</p> : null;
     };
 
     return (
@@ -62,90 +254,111 @@ export default function RegistrationPaymentIntegrationSecond() {
                     <div className="mb-3 flex">
                         <label className="w-24 font-bold">Name</label>
                         <span className="px-2">:</span>
-                        <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className="flex-grow border-b border-black focus:outline-none"
-                            required
-                        />
+                        <div className="flex-grow">
+                            <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                className={`w-full border-b ${errors.name ? 'border-red-500' : 'border-black'} focus:outline-none`}
+                                required
+                            />
+                            <ErrorMessage field="name" />
+                        </div>
                     </div>
 
                     <div className="mb-3 flex">
                         <label className="w-24 font-bold">Age</label>
                         <span className="px-2">:</span>
-                        <input
-                            type="text"
-                            name="age"
-                            value={formData.age}
-                            onChange={handleChange}
-                            className="w-24 border-b border-black focus:outline-none"
-                            required
-                        />
+                        <div className="w-24">
+                            <input
+                                type="text"
+                                name="age"
+                                value={formData.age}
+                                onChange={handleChange}
+                                className={`w-full border-b ${errors.age ? 'border-red-500' : 'border-black'} focus:outline-none`}
+                                required
+                            />
+                            <ErrorMessage field="age" />
+                        </div>
                         <span className="px-2 ml-4">Sex</span>
                         <span className="px-2">:</span>
-                        <select
-                            name="sex"
-                            value={formData.sex}
-                            onChange={handleChange}
-                            className="w-24 border-b border-black focus:outline-none bg-white"
-                            required
-                        >
-                            <option value="">Select</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <div className="w-24">
+                            <select
+                                name="sex"
+                                value={formData.sex}
+                                onChange={handleChange}
+                                className={`w-full border-b ${errors.sex ? 'border-red-500' : 'border-black'} focus:outline-none bg-white`}
+                                required
+                            >
+                                <option value="">Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <ErrorMessage field="sex" />
+                        </div>
                         <span className="px-2 ml-4">Contact No.</span>
                         <span className="px-2">:</span>
-                        <input
-                            type="text"
-                            name="contactNo"
-                            value={formData.contactNo}
-                            onChange={handleChange}
-                            className="flex-grow border-b border-black focus:outline-none"
-                            required
-                        />
+                        <div className="flex-grow">
+                            <input
+                                type="text"
+                                name="contactNo"
+                                value={formData.contactNo}
+                                onChange={handleChange}
+                                className={`w-full border-b ${errors.contactNo ? 'border-red-500' : 'border-black'} focus:outline-none`}
+                                required
+                            />
+                            <ErrorMessage field="contactNo" />
+                        </div>
                     </div>
 
                     <div className="mb-3 flex">
                         <label className="w-24 font-bold">E-mail</label>
                         <span className="px-2">:</span>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className="flex-grow border-b border-black focus:outline-none"
-                            required
-                        />
+                        <div className="flex-grow">
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                className={`w-full border-b ${errors.email ? 'border-red-500' : 'border-black'} focus:outline-none`}
+                                required
+                            />
+                            <ErrorMessage field="email" />
+                        </div>
                     </div>
 
                     <div className="mb-3 flex">
                         <label className="w-24 font-bold">Institute</label>
                         <span className="px-2">:</span>
-                        <input
-                            type="text"
-                            name="institute"
-                            value={formData.institute}
-                            onChange={handleChange}
-                            className="flex-grow border-b border-black focus:outline-none"
-                            required
-                        />
+                        <div className="flex-grow">
+                            <input
+                                type="text"
+                                name="institute"
+                                value={formData.institute}
+                                onChange={handleChange}
+                                className={`w-full border-b ${errors.institute ? 'border-red-500' : 'border-black'} focus:outline-none`}
+                                required
+                            />
+                            <ErrorMessage field="institute" />
+                        </div>
                     </div>
 
                     <div className="mb-3 flex">
                         <label className="w-24 font-bold">Designation</label>
                         <span className="px-2">:</span>
-                        <input
-                            type="text"
-                            name="designation"
-                            value={formData.designation}
-                            onChange={handleChange}
-                            className="flex-grow border-b border-black focus:outline-none"
-                            required
-                        />
+                        <div className="flex-grow">
+                            <input
+                                type="text"
+                                name="designation"
+                                value={formData.designation}
+                                onChange={handleChange}
+                                className={`w-full border-b ${errors.designation ? 'border-red-500' : 'border-black'} focus:outline-none`}
+                                required
+                            />
+                            <ErrorMessage field="designation" />
+                        </div>
                     </div>
 
                     <div className="mb-3 flex">
@@ -157,10 +370,11 @@ export default function RegistrationPaymentIntegrationSecond() {
                                 name="address"
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="w-full border-b border-black focus:outline-none"
+                                className={`w-full border-b ${errors.address ? 'border-red-500' : 'border-black'} focus:outline-none`}
                                 placeholder="Address Line 1"
                                 required
                             />
+                            <ErrorMessage field="address" />
                             <input
                                 type="text"
                                 name="addressLine2"
@@ -232,10 +446,11 @@ export default function RegistrationPaymentIntegrationSecond() {
                                         name="transactionId"
                                         value={formData.transactionId}
                                         onChange={handleChange}
-                                        className="w-full border-b border-black focus:outline-none"
+                                        className={`w-full border-b ${errors.transactionId ? 'border-red-500' : 'border-black'} focus:outline-none`}
                                         placeholder="Transaction ID/Reference Number"
                                         required
                                     />
+                                    <ErrorMessage field="transactionId" />
                                 </div>
                             )}
                         </div>
@@ -250,7 +465,6 @@ export default function RegistrationPaymentIntegrationSecond() {
                         <p className="text-center text-sm">Brird And Fish Museaum</p>
                         <p className="text-center text-sm">SHIRDI, AHILYANAGAR - 423109 (Maharashtra)</p>
                     </div>
-
                 </div>
 
                 {/* Organizing Committee */}
@@ -337,11 +551,20 @@ export default function RegistrationPaymentIntegrationSecond() {
                         type="submit"
                         onClick={handleSubmit}
                         className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors"
+                        disabled={isSubmitting}
                     >
-                        Submit Registration
+                        {isSubmitting ? 'Submitting...' : 'Submit Registration'}
                     </button>
                 </div>
             </div>
+
+            {/* Modal Component */}
+            <FormModal
+                isOpen={modal.isOpen}
+                type={modal.type}
+                message={modal.message}
+                onClose={handleCloseModal}
+            />
         </div>
     );
 }
