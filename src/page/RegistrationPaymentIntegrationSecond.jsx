@@ -1,4 +1,9 @@
 import { useState } from 'react';
+import siram from "../assets/siram.png";
+import bhim from "../assets/bhim.png";
+import paytm from "../assets/paytm.png";
+import upi from "../assets/upi.png";
+import qrcode from "../assets/qrcode.jpg";
 
 export default function RegistrationPaymentIntegrationSecond() {
     const [formData, setFormData] = useState({
@@ -10,6 +15,10 @@ export default function RegistrationPaymentIntegrationSecond() {
         institute: '',
         designation: '',
         address: '',
+        addressLine2: '',
+        category: 'Technologist',
+        paymentMode: 'online',
+        transactionId: ''
     });
 
     const handleChange = (e) => {
@@ -22,26 +31,27 @@ export default function RegistrationPaymentIntegrationSecond() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log("Form submitted:", formData);
         alert('Registration submitted successfully!');
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 p-4">
-            <div className="max-w-3xl mx-auto bg-white p-4">
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center py-6 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto bg-white p-6 shadow-md">
                 {/* Header with logos and title */}
-                <div className="flex items-center justify-between mb-2">
-                    <div className="w-16">
-                        <img src="/api/placeholder/64/64" alt="RAM Logo" className="w-full" />
+                <div className="flex items-center justify-between mb-4">
+                    <div className="w-32">
+                        <img src={siram} alt="Association Logo" className="w-full" />
                     </div>
                     <div className="text-center flex-grow px-4">
-                        <h1 className="text-3xl font-bold mb-1">11<sup>th</sup> State Conference</h1>
+                        <h1 className="text-3xl font-bold mb-1">1<sup>st</sup> State Conference</h1>
                         <p className="text-sm mb-1">Organised by</p>
-                        <p className="font-bold text-lg">RADIOGRAPHER'S ASSOCIATION OF MAHARASHTRA (RAM)</p>
-                        <p className="font-bold text-lg">JALNA UNIT</p>
-                        <p className="mt-2">Sunday, 10th April 2022</p>
+                        <p className="font-bold text-lg">SOCIETY OF ALLIED IMAGING & RADIOGRAPHER'S ASSOCIATION OF MAHARASHTRA (SAIRAM)</p>
+                        <p className="font-bold text-lg">AHILYANAGAR UNIT</p>
+                        <p className="mt-2">Saturday/Sunday 2-3 Aug 2025</p>
                     </div>
-                    <div className="w-16">
-                        <img src="/api/placeholder/64/64" alt="Association Logo" className="w-full" />
+                    <div className="w-32">
+                        <img src={siram} alt="Association Logo" className="w-full" />
                     </div>
                 </div>
 
@@ -61,6 +71,7 @@ export default function RegistrationPaymentIntegrationSecond() {
                             value={formData.name}
                             onChange={handleChange}
                             className="flex-grow border-b border-black focus:outline-none"
+                            required
                         />
                     </div>
 
@@ -73,16 +84,22 @@ export default function RegistrationPaymentIntegrationSecond() {
                             value={formData.age}
                             onChange={handleChange}
                             className="w-24 border-b border-black focus:outline-none"
+                            required
                         />
                         <span className="px-2 ml-4">Sex</span>
                         <span className="px-2">:</span>
-                        <input
-                            type="text"
+                        <select
                             name="sex"
                             value={formData.sex}
                             onChange={handleChange}
-                            className="w-24 border-b border-black focus:outline-none"
-                        />
+                            className="w-24 border-b border-black focus:outline-none bg-white"
+                            required
+                        >
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
                         <span className="px-2 ml-4">Contact No.</span>
                         <span className="px-2">:</span>
                         <input
@@ -91,6 +108,7 @@ export default function RegistrationPaymentIntegrationSecond() {
                             value={formData.contactNo}
                             onChange={handleChange}
                             className="flex-grow border-b border-black focus:outline-none"
+                            required
                         />
                     </div>
 
@@ -103,6 +121,7 @@ export default function RegistrationPaymentIntegrationSecond() {
                             value={formData.email}
                             onChange={handleChange}
                             className="flex-grow border-b border-black focus:outline-none"
+                            required
                         />
                     </div>
 
@@ -115,6 +134,7 @@ export default function RegistrationPaymentIntegrationSecond() {
                             value={formData.institute}
                             onChange={handleChange}
                             className="flex-grow border-b border-black focus:outline-none"
+                            required
                         />
                     </div>
 
@@ -127,6 +147,7 @@ export default function RegistrationPaymentIntegrationSecond() {
                             value={formData.designation}
                             onChange={handleChange}
                             className="flex-grow border-b border-black focus:outline-none"
+                            required
                         />
                     </div>
 
@@ -140,67 +161,158 @@ export default function RegistrationPaymentIntegrationSecond() {
                                 value={formData.address}
                                 onChange={handleChange}
                                 className="w-full border-b border-black focus:outline-none"
+                                placeholder="Address Line 1"
+                                required
                             />
                             <input
                                 type="text"
+                                name="addressLine2"
+                                value={formData.addressLine2}
+                                onChange={handleChange}
                                 className="w-full border-b border-black focus:outline-none mt-2"
+                                placeholder="Address Line 2"
                             />
+                        </div>
+                    </div>
+
+                    <div className="mb-3 flex">
+                        <label className="w-24 font-bold">Category</label>
+                        <span className="px-2">:</span>
+                        <div className="flex space-x-4">
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="radio"
+                                    name="category"
+                                    value="Technologist"
+                                    checked={formData.category === "Technologist"}
+                                    onChange={handleChange}
+                                />
+                                <span>Technologist (₹2000)</span>
+                            </label>
+                            {/* <label className="flex items-center space-x-2">
+                                <input
+                                    type="radio"
+                                    name="category"
+                                    value="Doctor"
+                                    checked={formData.category === "Doctor"}
+                                    onChange={handleChange}
+                                />
+                                <span>Doctor (₹500)</span>
+                            </label> */}
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="radio"
+                                    name="category"
+                                    value="Student"
+                                    checked={formData.category === "Student"}
+                                    onChange={handleChange}
+                                />
+                                <span>Student (₹1500)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div className="mb-3 flex">
+                        <label className="w-24 font-bold">Payment</label>
+                        <span className="px-2">:</span>
+                        <div className="flex-grow">
+                            <div className="flex space-x-4 mb-2">
+                                <label className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        name="paymentMode"
+                                        value="online"
+                                        checked={formData.paymentMode === "online"}
+                                        onChange={handleChange}
+                                    />
+                                    <span>Online Payment</span>
+                                </label>
+                                <label className="flex items-center space-x-2">
+                                    <input
+                                        type="radio"
+                                        name="paymentMode"
+                                        value="upi"
+                                        checked={formData.paymentMode === "upi"}
+                                        onChange={handleChange}
+                                    />
+                                    <span>UPI/QR Payment</span>
+                                </label>
+                            </div>
+                            {formData.paymentMode && (
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="transactionId"
+                                        value={formData.transactionId}
+                                        onChange={handleChange}
+                                        className="w-full border-b border-black focus:outline-none"
+                                        placeholder="Transaction ID/Reference Number"
+                                        required
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </form>
 
                 {/* Venue Box */}
-                <div className="flex mb-4">
+                <div className="flex flex-wrap justify-center mb-4">
                     <div className="border-2 border-black rounded-lg p-4 w-1/2">
                         <h3 className="text-center font-bold mb-1">Venue</h3>
-                        <p className="text-center">Mahesh Bhavan,</p>
-                        <p className="text-center text-sm">Near Guru Bacchan Chouk, Mantha Naka to</p>
-                        <p className="text-center text-sm">Chatrapati Shivaji Maharaj Putla Road,</p>
-                        <p className="text-center text-sm">New Jalna, JALNA - 431203 (Maharashtra)</p>
+                        <p className="text-center">Hotel, ai Palkhi, Nivara</p>
+                        <p className="text-center text-sm">Brird And Fish Museaum</p>
+                        {/* <p className="text-center text-sm">Chatrapati Shivaji Maharaj Putla Road,</p> */}
+                        <p className="text-center text-sm">SHIRDI, AHILYANAGAR - 423109 (Maharashtra)</p>
                     </div>
 
-                    <div className="w-1/2 flex justify-center items-center">
+                    {/* <div className="w-1/2 flex justify-center items-center">
                         <div className="text-center">
+                            <div className="border-b border-black w-48 h-12 mx-auto mb-2"></div>
                             <p>(Signature of the Delegate)</p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Organizing Committee */}
-                <div className="relative mb-4">
+                <div className="relative mb-6 mt-8">
                     <hr className="border-t border-black" />
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4">
                         <span className="font-bold">● Organizing Committee ●</span>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-4 gap-2 text-center mb-4">
-                    <div>
-                        <p className="font-bold">Sudam Vetal</p>
-                        <p className="text-sm">Krishna Imaging Center, Jalna</p>
-                        <p className="text-sm">Cell : 7972639276</p>
+                <div className="grid grid-cols-6  w-full text-center mb-6">
+                    <div className="">
+                        <p className="font-bold">Digamber Sonawane</p>
+                        {/* <p className="text-sm">Krishna Imaging Center, Jalna</p> */}
+                        <p className="text-sm">+918805565447</p>
                     </div>
-                    <div>
-                        <p className="font-bold">Chetan Dishware</p>
-                        <p className="text-sm">Nidan Imaging Center, Jalna</p>
-                        <p className="text-sm">Cell : 8766500442</p>
+                    <div className="">
+                        <p className="font-bold">Anil Umbarkar</p>
+                        <p className="text-sm">+919544201555</p>
                     </div>
-                    <div>
-                        <p className="font-bold">Anil Pakhare</p>
-                        <p className="text-sm">Krishna Imaging Center</p>
-                        <p className="text-sm">Cell : 8830151371</p>
+                    <div className="">
+                        <p className="font-bold">Ganesh Lokhande</p>
+                        <p className="text-sm">+917020532689</p>
                     </div>
-                    <div>
-                        <p className="font-bold">Sopan Bhonde</p>
-                        <p className="text-sm">Deepak Hospital, Jalna</p>
-                        <p className="text-sm">Cell : 8698748288</p>
+                    <div className="">
+                        <p className="font-bold">Hansaraj Parade</p>
+                        <p className="text-sm">+917030011527</p>
+                    </div>
+                    <div className="">
+                        <p className="font-bold">Vaibhav Kulkarni</p>
+                        <p className="text-sm">+919766921038</p>
+                    </div>
+                    <div className="">
+                        <p className="font-bold">Satpute Prasha</p>
+                        <p className="text-sm">+91992965350</p>
                     </div>
                 </div>
 
                 {/* Registration Charges */}
-                <div className="mb-4">
+                <div className="mb-6">
                     <h3 className="font-bold text-xl mb-1">REGISTRATION CHARGES</h3>
-                    <p className="mb-2">Online Reg. Till 7<sup>th</sup> April 2022</p>
+                    <p className="mb-2">Online Reg. Till 15<sup>th</sup> July 2025</p>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
@@ -214,48 +326,38 @@ export default function RegistrationPaymentIntegrationSecond() {
                                 <tbody>
                                     <tr>
                                         <td>Technologist</td>
-                                        <td>₹ 500/-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Doctor</td>
-                                        <td>₹ 500/-</td>
+                                        <td>₹ 2000/-</td>
                                     </tr>
                                     <tr>
                                         <td>Student</td>
-                                        <td>₹ 400/-</td>
+                                        <td>₹ 1500/-</td>
                                     </tr>
                                 </tbody>
                             </table>
 
                             <div className="border border-black p-2 mt-2">
                                 <p className="font-bold">Bank Details for Online Payment :</p>
-                                <p className="text-sm">Name of A/c. : Radiographers Association of Maharashtra Jalna</p>
-                                <p className="text-sm">Bank Name : Canara Bank &nbsp;&nbsp;&nbsp; Branch Name : Jalna</p>
-                                <p className="text-sm">A/c. No. : 110040473726 &nbsp;&nbsp;&nbsp; IFSC Code : CNRB0002588</p>
-                                <p className="text-sm">Contact No. : 9784143737 &nbsp;&nbsp;&nbsp; E-mail : radiotechjalna2022@gmail.com</p>
+                                <p className="text-sm">Name of A/c. : SOCIETY OF ALLIED IMAGING & RADIOGRAPHER'S ASSOCIATION OF MAHARASHTRA </p>
+                                <p className="text-sm">Bank Name : **** Bank &nbsp;&nbsp; Branch Name:AHILYANAGAR</p>
+                                <p className="text-sm">A/c. No. : *********** &nbsp;&nbsp; IFSC Code : CNR*****8</p>
+                                <p className="text-sm">Contact No. : ******** &nbsp;&nbsp; E-mail : *******@gmail.com</p>
                             </div>
                         </div>
 
                         <div className="flex justify-center items-center">
                             <div className="text-center">
-                                <img src="/api/placeholder/150/150" alt="QR Code" className="mx-auto mb-2" />
-                                <p className="text-xs">Scan using any BHIM UPI enabled APP</p>
-                                <div className="flex justify-center space-x-2 mt-2">
-                                    <img src="/api/placeholder/30/30" alt="BHIM" className="h-6" />
-                                    <img src="/api/placeholder/30/30" alt="UPI" className="h-6" />
-                                    <img src="/api/placeholder/30/30" alt="PayTM" className="h-6" />
-                                </div>
+                                <img src={qrcode} alt="QR Code" className="mx-auto w-48 mb-2" />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Submit Button (added for functionality) */}
+                {/* Submit Button */}
                 <div className="text-center">
                     <button
                         type="submit"
                         onClick={handleSubmit}
-                        className="bg-blue-600 text-white px-6 py-2 rounded"
+                        className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors"
                     >
                         Submit Registration
                     </button>

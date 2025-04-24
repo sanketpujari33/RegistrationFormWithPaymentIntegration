@@ -115,25 +115,30 @@ export default function RegistrationPaymentIntegration() {
                     </div>
                 </div>
 
-                <div className="bg-white rounded-xl shadow-xl  overflow-hidden">
+                <div className="bg-white rounded-lg shadow-xl  overflow-hidden">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-indigo-700 to-indigo-900 text-white px-6 py-6">
+                    <div className="bg-gradient-to-r from-indigo-700 to-indigo-900 text-white px-3 py-3">
                         <div className="flex items-center space-x-4">
-                            <div className="w- h-16 bg-white rounded-full flex-shrink-0">
+                            <div className="w-16 h-16 bg-white rounded-full flex-shrink-0">
                                 <img src={siram} alt="RAM Logo" className="w-full h-full object-contain" />
                             </div>
                             <div className="text-center flex-grow">
-                                <h1 className="text-2xl font-bold">11<sup>th</sup> State Conference</h1>
+                                <h1 className="text-2xl font-bold">1<sup>th</sup> State Conference</h1>
                                 <p className="text-sm text-indigo-200">Organised by</p>
-                                <p className="font-semibold">RADIOGRAPHER'S ASSOCIATION OF MAHARASHTRA</p>
-                                <p className="font-semibold text-indigo-200">JALNA UNIT</p>
+                                <p className="font-semibold">SOCIETY OF ALLIED IMAGING & RADIOGRAPHER'S ASSOCIATION OF MAHARASHTRA (SAIRAM)</p>
+                                <p className="font-semibold text-indigo-200">AHILYANAGAR UNIT</p>
+                            </div>
+                            <div className="w-16 h-16 bg-white rounded-full flex-shrink-0">
+                                <img src={siram} alt="RAM Logo" className="w-full h-full object-contain" />
                             </div>
                         </div>
-                        <p className="text-center mt-3 text-indigo-100 font-medium">Sunday, 10th April 2022</p>
+                        <p className="text-center mt-3 text-indigo-100 font-medium">
+                            Saturday & Sunday • August 2–3, 2025
+                        </p>
                     </div>
 
                     {/* Form */}
-                    <div className="px-6 py-6">
+                    <div className="px-6 py-6 overflow-y-auto">
                         <h2 className="text-xl font-bold text-center text-gray-800 pb-2 mb-6 border-b-2 border-indigo-600">
                             {step === 1 ? 'REGISTRATION DETAILS' : 'PAYMENT INFORMATION'}
                         </h2>
