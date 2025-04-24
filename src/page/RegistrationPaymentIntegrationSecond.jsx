@@ -283,7 +283,7 @@ export default function RegistrationPaymentIntegrationSecond() {
                         <p className="text-sm">+919766921038</p>
                     </div>
                     <div className="">
-                        <p className="font-bold">Satpute Prasha</p>
+                        <p className="font-bold">Satpute Prashant</p>
                         <p className="text-sm">+91992965350</p>
                     </div>
                 </div>
@@ -319,7 +319,7 @@ export default function RegistrationPaymentIntegrationSecond() {
                                 <p className="text-sm">Name of A/c.:SOCIETY OF ALLIED IMAGING & RADIOGRAPHER'S ASSOCIATION OF MAHARASHTRA </p>
                                 <p className="text-sm">Bank Name : BANK OF MAHARASHTRA &nbsp;&nbsp; Branch Name:AHILYANAGAR</p>
                                 <p className="text-sm">A/c. No. : 60498972404 &nbsp;&nbsp; IFSC Code : MAHB0000125</p>
-                                <p className="text-sm">Contact No. : ******** &nbsp;&nbsp; E-mail : *******@gmail.com</p>
+                                <p className="text-sm">E-mail : *******@gmail.com</p>
                             </div>
                         </div>
 
