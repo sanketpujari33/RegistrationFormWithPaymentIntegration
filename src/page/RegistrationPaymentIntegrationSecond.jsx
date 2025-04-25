@@ -180,7 +180,7 @@ export default function RegistrationPaymentIntegrationSecond() {
             // Send data to API
             const response = await axios.post(apiUrl, formData);
 
-            console.log("API Response:", response.data);
+            // console.log("API Response:", response.data);
 
             // Show success modal
             setModal({
@@ -206,7 +206,7 @@ export default function RegistrationPaymentIntegrationSecond() {
             });
 
         } catch (error) {
-            console.error("Error submitting form:", error);
+            // console.error("Error submitting form:", error);
 
             // Show error modal
             setModal({
@@ -461,7 +461,7 @@ export default function RegistrationPaymentIntegrationSecond() {
                 <div className="flex flex-wrap justify-center mb-4">
                     <div className="border-2 border-black rounded-lg p-4 w-1/2">
                         <h3 className="text-center font-bold mb-1">Venue</h3>
-                        <p className="text-center">Hotel, ai Palkhi, Nivara</p>
+                        <p className="text-center">Hotel, Sai Palkhi, Niwara</p>
                         <p className="text-center text-sm">Brird And Fish Museaum</p>
                         <p className="text-center text-sm">SHIRDI, AHILYANAGAR - 423109 (Maharashtra)</p>
                     </div>
@@ -523,7 +523,7 @@ export default function RegistrationPaymentIntegrationSecond() {
                                     </tr>
                                     <tr>
                                         <td>Student</td>
-                                        <td>₹ 1500/-</td>
+                                        <td>₹ 1600/-</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -531,15 +531,15 @@ export default function RegistrationPaymentIntegrationSecond() {
                             <div className="border border-black p-2 mt-2">
                                 <p className="font-bold">Bank Details for Online Payment</p>
                                 <p className="text-sm">Name of A/c.:SOCIETY OF ALLIED IMAGING & RADIOGRAPHER'S ASSOCIATION OF MAHARASHTRA </p>
-                                <p className="text-sm">Bank Name : BANK OF MAHARASHTRA &nbsp;&nbsp; Branch Name:AHILYANAGAR</p>
+                                <p className="text-sm">Bank Name : BANK OF MAHARASHTRA &nbsp;&nbsp; Branch Name: Dharashiv</p>
                                 <p className="text-sm">A/c. No. : 60498972404 &nbsp;&nbsp; IFSC Code : MAHB0000125</p>
-                                <p className="text-sm">E-mail : *******@gmail.com</p>
+
                             </div>
                         </div>
 
                         <div className="flex justify-center items-center">
                             <div className="text-center">
-                                <img src={qrcode} alt="QR Code" className="mx-auto w-48 mb-2" />
+                                <img src={qrcode} alt="QR Code" className="mx-auto w-1/2 mb-2" />
                             </div>
                         </div>
                     </div>
